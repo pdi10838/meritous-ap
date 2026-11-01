@@ -20,7 +20,7 @@
 #
 LDFLAGS = `sdl2-config --libs` -lSDL2_image -lSDL2_mixer -lz -lpthread
 #CCFLAGS = -Wall `sdl-config --cflags` -ggdb
-CCFLAGS = -Os -Wall `sdl2-config --cflags`
+CCFLAGS = -Os -Wall -D_GLIBCXX_USE_CXX11_ABI=0 `sdl2-config --cflags`
 #DEFINES = -DDEBUG_KEYS
 
 AP_INCLUDES = -Isrc/submodules/wswrap/include\
