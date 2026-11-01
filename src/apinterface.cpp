@@ -210,7 +210,7 @@ void ConnectAP()
 
   if (ap) delete ap;
   ap = nullptr;
-  if (!uri.empty() && uri.find("ws://") != 0 && uri.find("wss://") != 0) uri = "ws://"+uri;
+  if (!uri.empty() && uri.find("ws://") != 0 && uri.find("wss://") != 0) uri = "wss://"+uri;
 
   printf("Connecting to AP, server %s\n", uri.c_str());
   if (uri.empty()) ap = new APClient(uuid, GAME_NAME);
