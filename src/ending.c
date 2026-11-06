@@ -51,6 +51,15 @@ char statsmode = 0;
 
 int credits_scroll = 0;
 
+extern int goal;
+
+const char *goals[4] = {
+  "Return the Cursed Seal",
+  "Any Ending",
+  "True Ending",
+  "Unknown"
+};
+
 char *PText[10] = {
   "Activating the seal quickly initiated the shutdown sequence",
   "for the Chaos Engine Archipelago. Chambers throughout the",
@@ -396,6 +405,10 @@ void DrawStats()
     ComposeTime(buf, get_int_stat(STAT_TIME_KNIFE), 1);
     draw_text_f(350, 140, "%28s", 192, buf);
   } else draw_text_f(350, 130, "Rooms explored     %9d", 168, explored);
+
+  if(goal < 0 || goal > 3)
+    goal = 3;
+  draw_text_f(350, 150, "Goal: %s", 192, goals[goal]);
 
   draw_text(176, 200, "Tries      Time spent fighting              Time beaten", 192);
   for (int x = 0; x < 4; x++) {

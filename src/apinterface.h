@@ -18,7 +18,7 @@
 #ifndef APINTERFACE_H
 #define APINTERFACE_H
 
-
+extern int goal;
 char ReadAPSettings();
 
 void CreateAPStores();

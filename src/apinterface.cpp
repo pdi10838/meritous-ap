@@ -52,7 +52,7 @@ std::string server;
 std::string slotname;
 std::string password;
 
-int goal = 0;
+int goal = -1;
 bool deathlink = false;
 bool roomsanity = false;
 bool beta = false;
@@ -282,7 +282,7 @@ void ConnectAP()
 
     if (data.find("goal") != data.end() && data["goal"].is_number_integer())
       goal = data["goal"].get<int>();
-    else goal = 0;
+    else goal = -1;
 
     if (data.find("cost_scale") != data.end() && data["cost_scale"].is_array())
       apCostScale = data["cost_scale"].get<std::vector<int>>();
