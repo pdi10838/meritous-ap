@@ -45,6 +45,7 @@ Key|Definition
 `port`|The port to which the Archipelago client will connect. *Default: 38281*
 `password`|If applicable, the password to use to connect to the Archpelago instance. If one is used, provide it within quotation marks. If not, omit this value or provide `null` without quotation marks. *Default: `null` (no password will be used)*
 `slotname`|The slot name to connect to. This would be your player name, as provided in the configuration file (YAML) for this Archipelago session. *No default (must be provided if AP is enabled)*
+`beta`|Whether or not the game the client tries to connect to is "Meritous Beta", for future beta versions, or "Meritous" for core or 1.1.0 beta.
 
 In a future update, for ease of use, this process will be moved into in-game menus.
 
