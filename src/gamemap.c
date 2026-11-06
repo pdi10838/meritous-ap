@@ -263,15 +263,15 @@ void DisplayAutomap()
 							break;
 						case 28:
 							DrawRect(df_x, df_y, 8, 8, 192 ^ xcol);
-							draw_char(df_x, df_y, 'S', 0 ^ xcol);
+							draw_char(df_x, df_y, 'A', 0 ^ xcol);
 							break;
 						case 29:
 							DrawRect(df_x, df_y, 8, 8, 192 ^ xcol);
-							draw_char(df_x, df_y, 'C', 0 ^ xcol);
+							draw_char(df_x, df_y, 'B', 0 ^ xcol);
 							break;
 						case 30:
 							DrawRect(df_x, df_y, 8, 8, 192 ^ xcol);
-							draw_char(df_x, df_y, 'R', 0 ^ xcol);
+							draw_char(df_x, df_y, 27, 0 ^ xcol);
 							break;
 						case 31:
 							DrawRect(df_x, df_y, 8, 8, 192 ^ xcol);
