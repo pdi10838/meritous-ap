@@ -201,15 +201,15 @@ void DisplayAutomap()
 	from.x = 0;
 	from.y = 0;
 	from.w = 200;
-	from.h = 200;
+	from.h = 192;
 	
 	position.x = 437;
-	position.y = 32;
+	position.y = 40;
 	
 	SDL_BlitSurface(overview, &from, screen, &position);
 	
 	rx = (c_scroll_x / 32 - 27) * 200 / 512  + 437;
-	ry = (c_scroll_y / 32 - 27) * 200 / 512  + 32;
+	ry = (c_scroll_y / 32 - 27) * 192 / 512  + 40;
 	rw = 54 * 200 / 512;
 	rh = 54 * 200 / 512;
 	
@@ -217,15 +217,15 @@ void DisplayAutomap()
 		rw -= (437 - rx);
 		rx = 437;
 	}
-	if (ry < 32) {
-		rh -= (32 - ry);
-		ry = 32;
+	if (ry < 40) {
+		rh -= (40 - ry);
+		ry = 40;
 	}
 	if (rx+rw >= 437 + 200 - 1) {
 		rw -= ((rx+rw) - (437 + 200 - 1));
 	}
-	if (ry+rh >= 32 + 200 - 1) {
-		rh -= ((ry+rh) - (32 + 200 - 1));
+	if (ry+rh >= 40 + 200 - 1) {
+		rh -= ((ry+rh) - (40 + 192 - 1));
 	}
 	
 	DrawRect(rx, ry, rw + 1, 1, 50);
@@ -233,13 +233,13 @@ void DisplayAutomap()
 	DrawRect(rx, ry, 1, rh + 1, 50);
 	DrawRect(rx + rw, ry, 1, rh + 1, 50);
 	
-	DrawRect(2, 31, 432, 432, 255);
+	DrawRect(2, 39, 432, 424, 255);
 	t++;
-	for (y = 0; y < 54; y++) {
+	for (y = 0; y < 53; y++) {
 		for (x = 0; x < 54; x++) {
 			xcol = 0;
 			df_x = x * 8 + 2;
-			df_y = y * 8 + 32;
+			df_y = y * 8 + 40;
 			
 			rx = c_scroll_x / 32 - 27 + x;
 			ry = c_scroll_y / 32 - 27 + y;
@@ -333,11 +333,11 @@ void DisplayAutomap()
 	// |            |     |
 	// +-------2----+-----+
 	
-	DrawRect(0, 29, 640, 3, 230); 	// 1
+	DrawRect(0, 37, 640, 3, 230); 	// 1
 	DrawRect(0, 464, 640, 4, 230); 	// 2
-	DrawRect(0, 29, 2, 437, 230); 	// 3
-	DrawRect(434, 29, 3, 437, 230); 	// 4
-	DrawRect(637, 29, 3, 437, 230); 	// 5
+	DrawRect(0, 37, 2, 429, 230); 	// 3
+	DrawRect(434, 37, 3, 429, 230); 	// 4
+	DrawRect(637, 37, 3, 429, 230); 	// 5
 	DrawRect(437, 232, 200, 3, 230); 	// 6
 	
 }

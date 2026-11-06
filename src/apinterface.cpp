@@ -54,6 +54,11 @@ std::string password;
 
 int goal = 0;
 bool deathlink = false;
+bool roomsanity = false;
+bool beta = false;
+
+int rooms_per_check = 1;
+int max_room = 0;
 std::vector<int> apCostScale({80, 5, 4});
 
 const char *storeNames[] = {
@@ -88,7 +93,8 @@ void FWInt64(int64_t val) {
 const char *IDToLocation(int locId) {
   if (locId >= AP_OFFSET) locId -= AP_OFFSET;
   if (locId < 96) return storeNames[locId / 24];
-  else return specialStoreNames[locId - 96];
+  else if (locId < 104) return specialStoreNames[locId - 96];
+  else return "a room";
 }
 
 bool isEqual(double a, double b)
@@ -115,7 +121,8 @@ char ReadAPSettings() {
 
     password = settings["password"].is_string() ? settings["password"].get<std::string>() : (std::string)"";
     slotname = settings["slotname"].get<std::string>();
-
+    beta = settings["beta"].get<bool>();
+    
     return 1;
   } else return 0;
 }
@@ -188,6 +195,17 @@ void CollectAPSpecialItem(t_specialStore index)
   InternalCollectAPItem(index + 96);
 }
 
+void CollectAPRoomItem(int roomNumber) {
+  if(!ap) return;
+  if(!roomsanity) return;
+  if(roomNumber <= max_room && roomNumber % rooms_per_check == 0) {
+    std::list<int64_t> check;
+    check.push_back(roomNumber + 103 + AP_OFFSET);
+    ap->LocationScouts(check);
+    ap->LocationChecks(check);
+  }
+}
+
 size_t GetAPNextItemIndex(t_itemStores store)
 {
   if (!ap || !apStores.size()) return -1;
@@ -213,8 +231,9 @@ void ConnectAP()
   if (!uri.empty() && uri.find("ws://") != 0 && uri.find("wss://") != 0) uri = "wss://"+uri;
 
   printf("Connecting to AP, server %s\n", uri.c_str());
-  if (uri.empty()) ap = new APClient(uuid, GAME_NAME);
-  else ap = new APClient(uuid, GAME_NAME, uri);
+  std::string suffix = beta ? " Beta" : "";
+  if (uri.empty()) ap = new APClient(uuid, GAME_NAME + suffix);
+  else ap = new APClient(uuid, GAME_NAME + suffix, uri);
   SetAPStatus("Connecting", 1);
 
   // load DataPackage cache
@@ -269,8 +288,22 @@ void ConnectAP()
       apCostScale = data["cost_scale"].get<std::vector<int>>();
     else apCostScale = std::vector<int>({80,5,4}); 
 
+    if (data.find("roomsanity") != data.end() && data["roomsanity"].is_number_integer())
+      roomsanity = data["roomsanity"].get<int>() == 1;
+    else roomsanity = false;
+
+    if (data.find("rooms_per_check") != data.end() && data["rooms_per_check"].is_number_integer())
+      rooms_per_check = data["rooms_per_check"].get<int>();
+    else rooms_per_check = 1;
+
+    if (data.find("max_room") != data.end() && data["max_room"].is_number_integer())
+      max_room = data["max_room"].get<int>();
+    else max_room = 0;
+
+
     if (deathlink) ap->ConnectUpdate(false, 0b111, true, {"AP", "DeathLink"});
     ap->StatusUpdate(APClient::ClientStatus::PLAYING);
+    CollectAPRoomItem(1);
     printf("Connected and ready to go as %s\n", ap->get_player_alias(ap->get_player_number()).c_str());
     SetAPStatus("Connected", 0);
   });
@@ -316,7 +349,7 @@ void ConnectAP()
       // Note: !GetItem has item.player == me but has location == -1 which crashes due to negative array indexing
       if (item.player == me && item.location != -1) {
         auto localLocation = item.location - AP_OFFSET;
-        if (!(*apStores[localLocation / 24])[localLocation % 24]) {
+        if (localLocation < 104 && !(*apStores[localLocation / 24])[localLocation % 24] ) {
           printf("Not yet purchased on this save; storing\n");
           apStores[localLocation / 24]->StoreItem(localLocation % 24, item.item);
           continue;

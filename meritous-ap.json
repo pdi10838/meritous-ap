@@ -3,5 +3,7 @@
     "server": "wss://archipelago.gg",
     "port": 38281,
     "password": null,
-    "slotname": "Player"
+    "slotname": "Player",
+    "beta": true,
+    "flash": false
 }

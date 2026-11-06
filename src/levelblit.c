@@ -1146,9 +1146,9 @@ int DungeonPlay(const char *fname)
       }
     }
 
-    DrawRect(0, 0, 640, 29, 0);
-    DrawRect(1, 1, 638, 27, 32);
-    DrawRect(2, 2, 636, 25, 64);
+    DrawRect(0, 0, 640, 37, 0);
+    DrawRect(1, 1, 638, 35, 32);
+    DrawRect(2, 2, 636, 33, 64);
 
     if (!tele_select) {
       sprintf(buf, "Psi Crystals: %d", player_gems);
@@ -2562,7 +2562,8 @@ void SpecialTile(int x, int y)
   char message[100] = "";
   char specialmessage1[100] = "";
   char specialmessage2[100] = "";
-
+  char specialmessagefull[201] = "";
+  int msgid = 0;
   tile = Get(x, y);
   switch (tile) {
     case 25:
@@ -2760,6 +2761,7 @@ void SpecialTile(int x, int y)
 
       default: sprintf(specialmessage1, "ERROR: NO/INVALID MESSAGE VALUE GIVEN"); break;
     }
+    msgid = msgqueue -> msgid;
     msgqueue->duration--;
     if (msgqueue->duration > 20 && msgqueue->next != NULL) msgqueue->duration--;
     if (msgqueue->duration <= 0) DisposeFrontMessage();
@@ -2774,7 +2776,21 @@ void SpecialTile(int x, int y)
   }
 
   if (specialmessage1[0] != 0) {
+
     if (specialmessage2[0] == 0) sprintf(specialmessage2, "test");
+    switch (msgid) {
+      case 30:
+      case 31:
+      case 32:
+      case 33:
+      case 40:
+      case 41:
+      case 42:
+      case 43:
+      case 50:
+      case 73:
+      case 74:
+      case 75:
     int longermsg = (int)MAX(strlen(specialmessage1), strlen(specialmessage2));
     DrawRect(320 - longermsg*8 / 2 - 20, 325, longermsg*8+40, 55, 200);
     DrawRect(320 - longermsg*8 / 2 - 15, 330, longermsg*8+30, 45, 32);
@@ -2782,6 +2798,12 @@ void SpecialTile(int x, int y)
 
     draw_text(320 - strlen(specialmessage1)*8 / 2, 344, specialmessage1, t%16<8 ? 255 : 192);
     draw_text(320 - strlen(specialmessage2)*8 / 2, 354, specialmessage2, t%16<8 ? 255 : 192);
+        break;
+      default:
+        sprintf(specialmessagefull, "%s %s", specialmessage1, specialmessage2);
+        draw_text(3, 27, specialmessagefull, 220);
+        break;
+    }
   }
 
   t++;

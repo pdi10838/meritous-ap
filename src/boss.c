@@ -580,15 +580,15 @@ void DrawBossHP(int bar_length)
   Uint8 draw_col;
   SDL_Rect to;
   to.x = 0;
-  to.y = 29;
+  to.y = 37;
 
   if (boss_hp_icon == NULL) {
     boss_hp_icon = IMG_Load("dat/i/boss_icon.png");
   }
   SDL_BlitSurface(boss_hp_icon, NULL, screen, &to);
-  DrawRect(16, 28, 624, 17, 0);
-  DrawRect(17, 29, 622, 15, 32);
-  DrawRect(18, 30, 620, 13, 64);
+  DrawRect(16, 36, 624, 17, 0);
+  DrawRect(17, 37, 622, 15, 32);
+  DrawRect(18, 38, 620, 13, 64);
 
   draw_col = 128 + (boss_hp * 127 / 1000);
   if (bar_length < 100) {
@@ -597,14 +597,14 @@ void DrawBossHP(int bar_length)
     draw_amt = boss_hp * 614 / 1000;
   }
 
-  DrawRect(20, 32, draw_amt+2, 9, draw_col * 2 / 3);
-  DrawRect(21, 33, draw_amt, 7, draw_col);
+  DrawRect(20, 40, draw_amt+2, 9, draw_col * 2 / 3);
+  DrawRect(21, 41, draw_amt, 7, draw_col);
 
 
   if ( (current_boss == 3) && (player_shield == 30) ) {
-    draw_text(22, 33, "??????????????", 0);
+    draw_text(22, 41, "??????????????", 0);
   } else {
-    draw_text(22, 33, boss_names[current_boss], 0);
+    draw_text(22, 41, boss_names[current_boss], 0);
   }
 }
 

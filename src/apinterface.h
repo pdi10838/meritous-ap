@@ -18,6 +18,7 @@
 #ifndef APINTERFACE_H
 #define APINTERFACE_H
 
+
 char ReadAPSettings();
 
 void CreateAPStores();
@@ -27,6 +28,7 @@ int GetAPCostFactor(t_itemStores store);
 int GetAPUpgradeCost(t_itemStores store, char training);
 void CollectAPItem(t_itemStores store);
 void CollectAPSpecialItem(t_specialStore index);
+void CollectAPRoomItem(int roomNumber);
 size_t GetAPNextItemIndex(t_itemStores store);
 char APHasItemByIndex(t_itemStores store, size_t index);
 

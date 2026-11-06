@@ -308,6 +308,12 @@ void CollectSpecialItem(t_specialStore itemIndex) {
   }
 }
 
+void CollectRoomItem(int roomNumber) {
+  if(isArchipelago()) {
+    CollectAPRoomItem(roomNumber);
+  }
+}
+
 size_t GetNextItemIndex(t_itemStores store) {
   return isArchipelago() ? GetAPNextItemIndex(store) : LocalGetNextIndexInStore(store);
 }
