@@ -10,14 +10,14 @@ BEGIN
   BEGIN
     BLOCK "040904E4"
     BEGIN
-      VALUE "CompanyName", "KewlioMZX"
+      VALUE "CompanyName", "KewlioMZX,PDI"
       VALUE "FileDescription", "Meritous Gaiden"
-      VALUE "FileVersion", "1.4.2"
+      VALUE "FileVersion", "1.5.0"
       VALUE "InternalName", "meritous-ap"
       VALUE "LegalCopyright", "Licensed under the GNU General Public License v3"
       VALUE "OriginalFilename", "meritous-ap.exe"
       VALUE "ProductName", "Meritous Gaiden"
-      VALUE "ProductVersion", "1.4.2"
+      VALUE "ProductVersion", "1.5.0"
     END
   END
   BLOCK "VarFileInfo"
